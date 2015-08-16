@@ -1,5 +1,5 @@
 {
-  "name": "unslider",
+  "name": "unslider-non",
   "main": "src/unslider.min.js",
   "license": "MIT",
   "dependencies": {

@@ -2,7 +2,7 @@
  *   Unslider by @idiot and @damirfoy
  *   Contributors:
  *   - @ShamoX
- *
+ * 	 - @nonintanon
  */
 
 (function($, f) {
@@ -19,6 +19,8 @@
 			loop: !f,       // infinitely looping (boolean)
 			keys: f,        // keyboard shortcuts (boolean)
 			dots: f,        // display dots pagination (boolean)
+			cssDots: 'dots',// dots' css class name (string)
+			cssDot: 'dot',	// dot item's css class name (string)
 			arrows: f,      // display prev/next arrows (boolean)
 			prev: '&larr;', // text or html inside prev button (string)
 			next: '&rarr;', // same as for prev option
@@ -101,7 +103,7 @@
 			};
 
 			//  Dot pagination
-			o.dots && nav('dot');
+			o.dots && nav(_.o.cssDot);
 
 			//  Arrows support
 			o.arrows && nav('arrow');
@@ -179,7 +181,7 @@
 
 			if (!ul.queue('fx').length) {
 				//  Handle those pesky dots
-				el.find('.dot').eq(index).addClass('active').siblings().removeClass('active');
+				el.find('.' + _.o.cssDot).eq(index).addClass('active').siblings().removeClass('active');
 
 				el.animate(obj, speed, easing) && ul.animate($.extend({left: '-' + index + '00%'}, obj), speed, easing, function(data) {
 					_.i = index;
@@ -213,8 +215,8 @@
 
 		//  Create dots and arrows
 		function nav(name, html) {
-			if (name == 'dot') {
-				html = '<ol class="dots">';
+			if (name == _.o.cssDot) {
+				html = '<ol class="' + _.o.cssDots + '">';
 					$.each(_.li, function(index) {
 						html += '<li class="' + (index === _.i ? name + ' active' : name) + '">' + ++index + '</li>';
 					});
@@ -226,7 +228,7 @@
 
 			_.el.addClass('has-' + name + 's').append(html).find('.' + name).click(function() {
 				var me = $(this);
-				me.hasClass('dot') ? _.stop().to(me.index()) : me.hasClass('prev') ? _.prev() : _.next();
+				me.hasClass(_.o.cssDot) ? _.stop().to(me.index()) : me.hasClass('prev') ? _.prev() : _.next();
 			});
 		};
 	};
